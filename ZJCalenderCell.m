@@ -141,12 +141,17 @@
     
     if (_dayModel) {
         _dayLabel.hidden = NO;
-        _dayLabel.text = _dayModel.holiday.length ? _dayModel.holiday : [NSString stringWithFormat:@"%li", _dayModel.day];
-        if (_dayModel.text.length && ![ZJCalenderDateManager sharedManager].isSimpleMode) {
-            _textLabel.hidden = NO;
-            _textLabel.text = _dayModel.text;
-        } else {
+        if ([ZJCalenderDateManager sharedManager].isSimpleMode) {
+            _dayLabel.text = [NSString stringWithFormat:@"%li", _dayModel.day];
             _textLabel.hidden = YES;
+        } else {
+            _dayLabel.text = _dayModel.holiday.length ? _dayModel.holiday : [NSString stringWithFormat:@"%li", _dayModel.day];
+            if (_dayModel.text.length) {
+                _textLabel.hidden = NO;
+                _textLabel.text = _dayModel.text;
+            } else {
+                _textLabel.hidden = YES;
+            }
         }
     } else {
         _textLabel.hidden = YES;

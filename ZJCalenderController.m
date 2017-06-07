@@ -23,7 +23,7 @@
 #pragma mark ---lifeCycle---
 - (instancetype)init{
     if (self = [super init]) {
-        [ZJCalenderDateManager sharedManager].simpleMode = NO;
+        //[ZJCalenderDateManager sharedManager].simpleMode = NO;
     }
     return self;
 }
@@ -44,7 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
@@ -85,7 +85,7 @@
     _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _closeBtn.frame = CGRectMake(0, ZJScreenHeight - 44, ZJScreenWidth, 44);
     [_closeBtn setBackgroundColor:ZJCalenderBackgroundColor];
-    [_closeBtn setImage:[self bundleImageNamed:@"ZJCalenderCloseImg"] forState:UIControlStateNormal];
+    [_closeBtn setImage:[self bundleImageNamed:@"ZJClenderArrowImg"] forState:UIControlStateNormal];
     [_closeBtn addTarget:self action:@selector(closeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     
     UIColor *colorOne = [ZJCalenderBackgroundColor colorWithAlphaComponent:0.0];

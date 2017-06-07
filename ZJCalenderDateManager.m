@@ -63,7 +63,7 @@ static ZJCalenderDateManager *sharedManager = nil;
                     dayModel.month = m;
                     dayModel.year = y;
                     dayModel.date = date;
-                    dayModel.holiday = self.isSimpleMode ? @"" : [self getHolidays:date];
+                    dayModel.holiday = [self getHolidays:date];
                     dayModel.text = _text;
                     dayModel.monthModel = monthModel;
                     dayModel.selectedEnable = YES;
@@ -140,10 +140,10 @@ static ZJCalenderDateManager *sharedManager = nil;
 
 - (void)clearSelection{
     
+    if (self.simpleMode) return;
     self.lastFirstSelectedDayModel = nil;
     self.lastSecondSelectedDayModel = nil;
     self.selectFinished = NO;
-    if (self.simpleMode) return;
     [_monthModelArry enumerateObjectsUsingBlock:^(ZJCalenderMonthModel *monthModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
         [monthModel.dayModelArray enumerateObjectsUsingBlock:^(ZJCalenderDayModel *dayModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -176,7 +176,7 @@ static ZJCalenderDateManager *sharedManager = nil;
         self.minSeletedDays = 0;
         self.text = nil;
         
-        [self refreshDateComplete:nil];
+        //[self refreshDateComplete:nil];
     }
 }
 

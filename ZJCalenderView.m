@@ -84,8 +84,15 @@
 }
 
 
+- (void)setSelectedEnable:(BOOL)selectedEnable{
+    _selectedEnable = selectedEnable;
+    
+    _calenderCollectionView.userInteractionEnabled = selectedEnable;
+}
+
+
 - (void)reloadData{
-    [_calenderCollectionView reloadData];
+    [self setupCalenderDate];
 }
 
 
@@ -245,7 +252,6 @@
     _calenderCollectionView = [[ZJCalenderCollectionView alloc] initWithFrame:CGRectMake(calenderX, calenderY, calenderW, calenderH) collectionViewLayout:layout];
     _calenderCollectionView.calenderMode = _calenderMode;
     _calenderCollectionView.monthModelArray = _monthModelArray.count ? _monthModelArray : nil;
-    _calenderCollectionView.userInteractionEnabled = _selectedEnable;
     
     [self insertSubview:_calenderCollectionView atIndex:0];
 }

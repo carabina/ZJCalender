@@ -1,4 +1,4 @@
-//
+    //
 //  ZJCalenderCollectionView.m
 //
 //
@@ -25,7 +25,6 @@
 @property (nonatomic, strong) NSMutableArray *includedDayModelArray;
 
 @property (nonatomic, strong) ZJCalenderDateManager *mgr;
-//@property (nonatomic, strong) NSMutableArray *loadDateSelArray;
 
 @end
 
@@ -43,7 +42,7 @@
 
 #pragma mark ---public---
 - (void)setMonthModelArray:(NSMutableArray *)monthModelArray{
-    if (!monthModelArray.count) return;
+    if (!monthModelArray.count || (_monthModelArray.count && _mgr.isSimpleMode)) return;
     
     _monthModelArray = monthModelArray;
     
@@ -455,15 +454,18 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZJCalenderCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ZJCalenderCellReusedId forIndexPath:indexPath];
     
-    ZJCalenderMonthModel *monthModel = _monthModelArray[indexPath.section];
-    NSInteger dayIndex = indexPath.item - monthModel.firstDayWeek;
-    if (dayIndex < 0) {
-        cell.dayModel = nil;
-    } else {
-        ZJCalenderDayModel *dayModel = monthModel.dayModelArray[dayIndex];
-        dayModel.indexPath = indexPath;
-        cell.dayModel = dayModel;
+    if (_monthModelArray.count) {
+        ZJCalenderMonthModel *monthModel = _monthModelArray[indexPath.section];
+        NSInteger dayIndex = indexPath.item - monthModel.firstDayWeek;
+        if (dayIndex < 0) {
+            cell.dayModel = nil;
+        } else {
+            ZJCalenderDayModel *dayModel = monthModel.dayModelArray[dayIndex];
+            dayModel.indexPath = indexPath;
+            cell.dayModel = dayModel;
+        }
     }
+    
     return cell;
 }
 
@@ -474,21 +476,22 @@
 }
 
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
+
     return section == _monthModelArray.count - 1 ? CGSizeMake(self.frame.size.width, ZJCalenderMonthTitleViewHeight) : CGSizeZero;
 }
 
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    
+   
     ZJCalenderMonthTitleView *cell = (ZJCalenderMonthTitleView *)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ZJCalenderHeaderReusedId forIndexPath:indexPath];
-    if (_calenderMode == ZJCalenderModePartScreen) {
+    ZJCalenderMonthModel *monthModel = _monthModelArray[indexPath.section];
+    cell.month = monthModel.month;
+    
+    if (_calenderMode == ZJCalenderModePartScreen || [kind isEqualToString:UICollectionElementKindSectionFooter]) {
         cell.hidden = YES;
     }
     
-    ZJCalenderMonthModel *monthModel = _monthModelArray[indexPath.section];
-    cell.month = monthModel.month;
     return cell;
 }
 
@@ -501,8 +504,5 @@
     
     [self selectDayModel:dayModel];
 }
-
-
-
 
 @end
