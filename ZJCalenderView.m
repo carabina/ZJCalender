@@ -182,6 +182,7 @@
         label.textColor = ZJCalenderDisabledTextColor;
         label.textAlignment = NSTextAlignmentCenter;
         label.backgroundColor = ZJCalenderBackgroundColor;
+        label.layer.masksToBounds = YES;
         
         switch (i) {
             case 0:

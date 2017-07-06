@@ -28,6 +28,8 @@
         
         self.contentView.backgroundColor = ZJCalenderBackgroundColor;
         
+        self.opaque = YES;
+        
         [self setupSubViews];
     }
     return self;
@@ -192,6 +194,8 @@
     CGFloat leftFlatBgX = -leftFlatBgW + self.contentView.frame.size.width / 2;
     _leftFlatBgView = [[UIView alloc] initWithFrame:CGRectMake(leftFlatBgX, leftFlatBgY, leftFlatBgW, leftFlatBgH)];
     _leftFlatBgView.backgroundColor = ZJCalenderBackgroundColor;
+    _leftFlatBgView.layer.masksToBounds = YES;
+    
     [self.contentView insertSubview:_leftFlatBgView belowSubview:_roundBgView];
     
     CGFloat rightFlatBgY = 0;
@@ -200,13 +204,15 @@
     CGFloat rightFlatBgX = self.contentView.frame.size.width / 2;
     _rightFlatBgView = [[UIView alloc] initWithFrame:CGRectMake(rightFlatBgX, rightFlatBgY, rightFlatBgW, rightFlatBgH)];
     _rightFlatBgView.backgroundColor = ZJCalenderBackgroundColor;
+    _rightFlatBgView.layer.masksToBounds = YES;
+    
     [self.contentView insertSubview:_rightFlatBgView belowSubview:_roundBgView];
 }
 
 
 - (UILabel *)createLabel{
     UILabel *label = [[UILabel alloc] init];
-    label.bounds = CGRectMake(0, 0, self.contentView.frame.size.width * 2, self.contentView.frame.size.height / 2);
+    label.bounds = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height / 2);
     label.font = [UIFont systemFontOfSize:ZJCalenderCommonTextSize weight:UIFontWeightLight];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = ZJCalenderCommonTextColor;
