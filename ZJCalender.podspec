@@ -14,7 +14,7 @@ TODO: A calendar that supports a variety of functions, easy to use.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'ZJCalender/Classes/**/*'
+  s.source_files = 'ZJCalender/**/*.{h,m}'
   
   s.resource_bundles = {
 	'ZJCalender' => ['ZJCalender/Assets/*']
