@@ -174,10 +174,10 @@
     _weekView = [[UIView alloc] initWithFrame:CGRectMake(weekX, weekY, weekW, weekH)];
     _weekView.backgroundColor = ZJCalenderBackgroundColor;
     
-    CGFloat weekDayWidth = (weekW - 2 * LTPadding - 6 * ZJCalenderItemSpacing)/ 7;
+    CGFloat weekDayWidth = (weekW - 28 - 6 * ZJCalenderItemSpacing)/ 7;
     
     for (NSInteger i = 0; i < 7; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(LTPadding + (weekDayWidth + ZJCalenderItemSpacing) * i, (ZJCalenderWeekViewHeight - weekDayWidth) / 2 + LTPadding, weekDayWidth, ZJCalenderCommonTextSize)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(14 + (weekDayWidth + ZJCalenderItemSpacing) * i, (ZJCalenderWeekViewHeight - weekDayWidth) / 2 + 14, weekDayWidth, ZJCalenderCommonTextSize)];
         label.font = [UIFont systemFontOfSize:ZJCalenderCommonTextSize weight:UIFontWeightLight];
         label.textColor = ZJCalenderDisabledTextColor;
         label.textAlignment = NSTextAlignmentCenter;

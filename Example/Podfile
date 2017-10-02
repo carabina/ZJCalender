@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ZJCalender_Example' do
+  pod 'ZJCalender', :path => '../'
+
+  target 'ZJCalender_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end
